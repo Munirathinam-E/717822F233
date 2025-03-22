@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react';
+import React, { Fragment, useState } from 'react';
 import { Container, Form, FormGroup, Label, Input, Button } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
@@ -76,8 +76,8 @@ const AverageCal = () => {
               >
                 <option value="primes">Prime Numbers</option>
                 <option value="fibo">Fibonacci Numbers</option>
-                <option value="e">Even Numbers</option>
-                <option value="r">Random Numbers</option>
+                <option value="even">Even Numbers</option>
+                <option value="rand">Random Numbers</option>
               </Input>
             </FormGroup>
 
