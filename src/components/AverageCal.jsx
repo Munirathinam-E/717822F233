@@ -5,7 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const AverageCal = () => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-  const [type, setType] = useState('fibo');
+  const [type, setType] = useState('e');
   const [details, setDetails] = useState({
     windowPrevState: [],
     windowCurrState: [],
@@ -13,7 +13,7 @@ const AverageCal = () => {
     avg: 0,
   });
 
-  const fetchWithTimeout = (url, timeout = 2000) => {
+  const fetchWithTimeout = (url, timeout = 500) => {
     return Promise.race([
       fetch(url).then((res) => {
         if (!res.ok) throw new Error(`Failed to fetch data from ${url}`);
@@ -25,7 +25,7 @@ const AverageCal = () => {
 
   const apiFetch = async (selectedType) => {
     try {
-      const url = `http://20.244.56.144/test/${selectedType}`;
+      const url = `http://localhost:9876/numbers/${selectedType}`;
       console.log('Fetching from:', url);
       const result = await fetchWithTimeout(url);
       console.log('API Response:', result);
@@ -33,9 +33,9 @@ const AverageCal = () => {
       const newNumbers = result.numbers.filter((n) => !details.windowCurrState.includes(n));
       let updatedWindow = [...details.windowCurrState, ...newNumbers];
 
+      
       if (updatedWindow.length > 10) {
-        const overflow = updatedWindow.length - 10;
-        updatedWindow = updatedWindow.slice(overflow);
+        updatedWindow = updatedWindow.slice(-10);
       }
 
       setDetails({
@@ -74,10 +74,10 @@ const AverageCal = () => {
                 onChange={(e) => setType(e.target.value)}
                 className="mt-2 block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500"
               >
-                <option value="primes">Prime Numbers</option>
-                <option value="fibo">Fibonacci Numbers</option>
-                <option value="even">Even Numbers</option>
-                <option value="rand">Random Numbers</option>
+                <option value="p">Prime Numbers</option>
+                <option value="f">Fibonacci Numbers</option>
+                <option value="e">Even Numbers</option>
+                <option value="r">Random Numbers</option>
               </Input>
             </FormGroup>
 
